@@ -1,1 +1,58 @@
+body{
+  height:97vh;
+  background-image: url('../images/lfz-background.jpg')
+}
 
+.container{
+  height:100%;
+}
+
+main{
+  display:flex;
+  height:100%;
+}
+
+/*----------- the header/title be centered  ---------*/
+.title{
+  text-align:center;
+  font-weight:bold;
+  font-size:3rem;
+  padding:1.5%;
+}
+
+/*------- for aside -------- */
+.asideTitle{
+  background-color:lightblue;
+  margin:3%;
+  padding:13.7%;
+  text-align: center;
+}
+
+/*------ the cards ------ */
+.card{
+  position: relative;
+  height:30%
+}
+
+img{
+  width:95%;
+}
+
+.gameArea{
+  height:85%;
+}
+
+
+/*------------- working on hiding the cards being click ---------- */
+.card-front, .card-back {
+  height:100%;
+  width:100%;
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-position: center;
+  position:absolute;
+}
+
+.card-back{
+  background-image: url("../images/lfz-card.jpg");
+}
