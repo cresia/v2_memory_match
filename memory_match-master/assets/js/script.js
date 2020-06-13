@@ -8,6 +8,9 @@ var secondCardClicked = null;
 var firstCardClasses = null;
 var secondCardClasses = null;
 
+var matches = 0;
+var maxMatches = 9;
+
 function handleClick(event){
   if(event.target.className.indexOf('card-back') === -1){
     return;
@@ -33,6 +36,13 @@ function handleClick(event){
         mainGameCardClick.addEventListener('click',handleClick);
         firstCardClicked = null;
         secondCardClicked = null;
+        matches++;
+        // console.log("matches variable:", matches)
+        if(maxMatches === matches){
+          // console.log("you have won!")
+          document.querySelector(".modal").classList.remove("hidden")
+        }
+
     } else {
       // console.log("the images do not match");
       setTimeout(function () {
