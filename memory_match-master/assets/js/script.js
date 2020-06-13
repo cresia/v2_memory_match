@@ -12,6 +12,9 @@ var maxMatches = 9;
 
 var attempts = 0;
 var gamesPlayed = 0;
+var accuracy;
+
+var statistic = 0;
 
 
 function handleClick(event){
@@ -48,7 +51,8 @@ function handleClick(event){
 
         if(maxMatches === matches){
           // console.log("you have won!")
-          document.querySelector(".modal").classList.remove("hidden")
+          document.querySelector(".modal").classList.remove("hidden");
+
         }
 
     } else {
@@ -73,5 +77,34 @@ function displayStats(){
 }
 
 function calculateAccuracy(attempts, matches){
-  return Math.trunc((matches/ attempts) * 100) + " %";
+  accuracy = Math.trunc((matches / attempts) * 100) + " %";
+
+  if(matches === 0 && attempts === 0){
+    accuracy = 0 + " %";
+  }
+  return accuracy;
+}
+
+
+function resetGame(){
+  document.getElementById("attemptsResult").textContent = statistic;
+  document.getElementById("accuracyResult").textContent = statistic + " %";
+  gamesPlayed++;
+  document.getElementById("gamesPlayedResult").textContent = gamesPlayed;
+  attempts = 0;
+  matches = 0;
+  displayStats();
+  resetCards();
+
+  var button = document.querySelector("button");
+  var resetModal = document.querySelector(".modal").classList.add("hidden");
+}
+
+document.querySelector("button").addEventListener("click", resetGame);
+
+function resetCards(){
+  var hiddenCards = document.querySelectorAll(".card-back");
+  for(var i = 0; i < hiddenCards.length; i++){
+    hiddenCards[i].classList.remove("hidden");
+  }
 }
