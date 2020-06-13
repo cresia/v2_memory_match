@@ -97,3 +97,20 @@ img{
 .hidden{
   display: none;
 }
+
+.modal{
+  position:fixed;
+  background-color:#b9fdf5;
+  height:15rem;
+  width:28rem;
+  top:20rem;
+  left:40rem;
+}
+
+.modalText{
+  text-align:center;
+  padding: 5rem;
+  font-size:24px;
+  letter-spacing: 6px;
+  line-height: 1.8;
+}
