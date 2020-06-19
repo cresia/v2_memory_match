@@ -14,7 +14,7 @@ var attempts = 0;
 var gamesPlayed = 0;
 var accuracy;
 
-var statistic = 0;
+// var statistic = 0;
 
 
 function handleClick(event){
@@ -52,7 +52,6 @@ function handleClick(event){
         if(maxMatches === matches){
           // console.log("you have won!")
           document.querySelector(".modal").classList.remove("hidden");
-
         }
 
     } else {
@@ -76,31 +75,39 @@ function displayStats(){
   document.getElementById("accuracyResult").textContent = calculateAccuracy(attempts,matches);
 }
 
+
+
 function calculateAccuracy(attempts, matches){
   accuracy = Math.trunc((matches / attempts) * 100) + " %";
 
   if(matches === 0 && attempts === 0){
-    accuracy = 0 + " %";
+    return accuracy = 0 + " %";
   }
   return accuracy;
 }
 
 
+
 function resetGame(){
-  document.getElementById("attemptsResult").textContent = statistic;
-  document.getElementById("accuracyResult").textContent = statistic + " %";
   gamesPlayed++;
-  document.getElementById("gamesPlayedResult").textContent = gamesPlayed;
   attempts = 0;
   matches = 0;
   displayStats();
   resetCards();
 
-  var button = document.querySelector("button");
+  //--- or --- using cdn jqery: $("#gameCards").empty();
+  var cardContainer = document.getElementById("gameCards");
+  cardContainer.innerHTML = "";
+
+  dynamicCard();
+
+  var button = document.querySelector("#playAgain");
   var resetModal = document.querySelector(".modal").classList.add("hidden");
 }
 
-document.querySelector("button").addEventListener("click", resetGame);
+document.querySelector("#playAgain").addEventListener("click", resetGame);
+
+
 
 function resetCards(){
   var hiddenCards = document.querySelectorAll(".card-back");
@@ -108,3 +115,51 @@ function resetCards(){
     hiddenCards[i].classList.remove("hidden");
   }
 }
+
+
+
+var shuffle = ["css-logo", "docker-logo", "github-logo", "html-logo", "js-logo", "mysql-logo", "node-logo", "php-logo", "react-logo",
+  "css-logo", "docker-logo", "github-logo", "html-logo", "js-logo", "mysql-logo", "node-logo", "php-logo", "react-logo"];
+
+dynamicCard();
+
+function shufflingCards(){
+  var temporary, randomIndex;
+  var currentIndex = shuffle.length-1;
+
+  for(var i = 0; i < currentIndex; i++){
+    randomIndex = Math.floor(Math.random() * currentIndex);
+
+    //------------ swapping cards ----------------
+    temporary = shuffle[currentIndex];
+    shuffle[currentIndex] = shuffle[randomIndex];
+    shuffle[randomIndex] = temporary;
+  }
+  // console.log(shuffle)
+  // return shuffle;
+}
+
+
+function dynamicCard(){
+  var mainCard = document.getElementById("gameCards");
+  shufflingCards();
+
+  for(var i = 0; i < shuffle.length; i++){
+    var cardBack = document.createElement("div")
+    cardBack.classList.add("card-back");
+
+    var cardFront = document.createElement("div");
+    cardFront.classList.add("card-front");
+    cardFront.classList.add(shuffle[i]);
+
+    var cardFrontBack = document.createElement("div");
+    cardFrontBack.classList.add('card')
+    cardFrontBack.classList.add("col-2");
+
+    cardFrontBack.append(cardFront, cardBack);
+    mainCard.appendChild(cardFrontBack);
+  }
+
+}
+
+document.querySelector("#reset").addEventListener("click", resetGame);
